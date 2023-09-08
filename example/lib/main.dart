@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 typedef ItemTapCallback = void Function(Map<String, dynamic> item);
 
 void main() {
-  runApp(MaterialApp(home: HomeScreen()));
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    ),
+  );
 }
 
 class HomeScreen extends StatelessWidget {

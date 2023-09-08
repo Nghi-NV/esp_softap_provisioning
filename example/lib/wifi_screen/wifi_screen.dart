@@ -5,7 +5,6 @@ import '../scan_list.dart';
 import 'wifi.dart';
 import 'wifi_dialog.dart';
 
-
 class WiFiScreenSoftAP extends StatefulWidget {
   WiFiScreenSoftAP({Key key}) : super(key: key);
   @override
@@ -22,7 +21,8 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
             onSubmit: (ssid, password) {
               print('ssid =$ssid, password = $password');
               BlocProvider.of<WiFiBlocSoftAP>(_context).add(
-                  WifiEventStartProvisioningSoftAP(ssid: ssid, password: password));
+                  WifiEventStartProvisioningSoftAP(
+                      ssid: ssid, password: password));
             },
           );
         });
@@ -71,16 +71,15 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
       wifiList = Expanded(
           child: ScanList(state.wifiList, Icons.wifi, disableLoading: true,
               onTap: (Map<String, dynamic> item, BuildContext _context) {
-                _showDialog(item, _context);
-              }));
+        _showDialog(item, _context);
+      }));
     }
     var body = Expanded(child: Container());
     var statusWidget;
     if (step < 2) {
       statusWidget = Expanded(child: _statusWidget[step]);
       body = Expanded(
-          child:
-          SpinKitDoubleBounce(color: Theme.of(context).accentColor));
+          child: SpinKitDoubleBounce(color: Theme.of(context).accentColor));
     } else {
       body = wifiList;
     }
@@ -88,9 +87,9 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
       children: <Widget>[
         Center(
             child: Text(
-              'Select Wifi network',
-              style: Theme.of(context).textTheme.headline5,
-            )),
+          'Select Wifi network',
+          style: Theme.of(context).textTheme.headline5,
+        )),
         body,
         statusWidget ?? Container(),
       ],
@@ -113,7 +112,8 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
         ),
       ),
       body: BlocProvider(
-        create: (BuildContext context) => WiFiBlocSoftAP()..add(WifiEventLoadSoftAP()),
+        create: (BuildContext context) =>
+            WiFiBlocSoftAP()..add(WifiEventLoadSoftAP()),
         child: BlocBuilder<WiFiBlocSoftAP, WifiState>(
           builder: (BuildContext context, WifiState state) {
             if (state is WifiStateConnecting) {
@@ -131,7 +131,7 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SpinKitThreeBounce(
-                      color: Theme.of(context).textSelectionColor,
+                      color: Colors.lightBlueAccent,
                       size: 20,
                     ),
                     Text('Provisioning',
@@ -143,43 +143,59 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
             if (state is WifiStateProvisionedSuccessfully) {
               return Container(
                 child: Center(
-                  child: MaterialButton(child: Text('Done'), color: Colors.lightBlueAccent, onPressed: () {
-                    Navigator.of(context).pop();
-                  },),
+                  child: MaterialButton(
+                    child: Text('Done'),
+                    color: Colors.lightBlueAccent,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
               );
             }
             if (state is WifiStateProvisioningAuthError) {
               return Container(
                 child: Center(
-                  child: MaterialButton(child: Text('Auth Error'), color: Colors.redAccent, onPressed: () {
-                    Navigator.of(context).pop();
-                  },),
+                  child: MaterialButton(
+                    child: Text('Auth Error'),
+                    color: Colors.redAccent,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
               );
             }
             if (state is WifiStateProvisioningNetworkNotFound) {
               return Container(
                 child: Center(
-                  child: MaterialButton(child: Text('Network Not Found'), color: Colors.redAccent, onPressed: () {
-                    Navigator.of(context).pop();
-                  },),
+                  child: MaterialButton(
+                    child: Text('Network Not Found'),
+                    color: Colors.redAccent,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
               );
             }
             if (state is WifiStateProvisioningDisconnected) {
               return Container(
                 child: Center(
-                  child: MaterialButton(child: Text('Subol Device Disconnected'), color: Colors.redAccent, onPressed: () {
-                    Navigator.of(context).pop();
-                  },),
+                  child: MaterialButton(
+                    child: Text('Subol Device Disconnected'),
+                    color: Colors.redAccent,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
               );
             }
             return Container(
               child: Center(
                 child: SpinKitThreeBounce(
-                  color: Theme.of(context).textSelectionColor,
+                  color: Colors.lightBlueAccent,
                   size: 20,
                 ),
               ),
